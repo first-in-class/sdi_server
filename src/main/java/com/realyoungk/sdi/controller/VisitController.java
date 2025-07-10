@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/visits")
 public class VisitController {
 
-    private VisitService visitService;
+    private final VisitService visitService;
+
+    public VisitController(VisitService visitService) {
+        this.visitService = visitService;
+    }
 
     @GetMapping
     public String visits() {
@@ -17,7 +21,7 @@ public class VisitController {
 
     @PostMapping("/new")
     public String postVisit(@RequestBody VisitModel visitModel) {
-        // TODO: 데이터베이스에 저장
+        visitService.saveVisit(visitModel);
         return "성공";
     }
 }

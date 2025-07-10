@@ -9,8 +9,7 @@ import java.util.Date;
 @Entity
 public class VisitEntity {
     @Id
-    @Column(name = "Id")
-    private String key;
+    private String id;
     private Date createdAt;
     private Date updatedAt;
 
@@ -18,21 +17,21 @@ public class VisitEntity {
     private Date startedAt;
     /// 끝나는시각
     private Date finishedAt;
-    /// 참여자 수
+    /// 참여자 수: ex. 10, 13, 무제한, null
     private String participantCount;
-    /// 기수
+    /// 기수: ex. 1기, 2기, 3기, 강남지스
     private String teamName;
-    /// 주선자
+    /// 주선자: ex. 김영우, 이지은
     private String organizer;
     /// 비고
     private String remark;
 
-    public String getKey() {
-        return key;
+    public String getId() {
+        return id;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getCreatedAt() {
