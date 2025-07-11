@@ -9,6 +9,6 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sdi
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/sdi}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
