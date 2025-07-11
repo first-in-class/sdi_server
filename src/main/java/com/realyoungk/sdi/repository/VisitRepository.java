@@ -1,12 +1,15 @@
 package com.realyoungk.sdi.repository;
 
+
 import com.realyoungk.sdi.entity.VisitEntity;
-import org.hibernate.mapping.List;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
+@Repository
 public interface VisitRepository {
-    Object findByStartedAtAfterOrderByStartedAtDesc(Date startedAt);
+    List<VisitEntity> findByStartedAtAfterOrderByStartedAtDesc(Date startedAt);
 
-    void save(String key, Object value);
+    VisitEntity save(VisitEntity visitEntity);
 }
