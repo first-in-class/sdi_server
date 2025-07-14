@@ -16,17 +16,17 @@ public class VisitEntity {
     private Date createdAt;
     private Date updatedAt;
 
-    /// 시작시각
+    // 시작시각
     private Date startedAt;
-    /// 끝나는시각
+    // 끝나는시각
     private Date finishedAt;
-    /// 참여자 수: ex. 10, 13, 무제한, null
+    // 참여자 수: ex. 10, 13, 무제한, null
     private String participantCount;
-    /// 기수: ex. 1기, 2기, 3기, 강남지스
+    // 기수: ex. 1기, 2기, 3기, 강남지스
     private String teamName;
-    /// 주선자: ex. 김영우, 이지은
+    // 주선자: ex. 김영우, 이지은
     private String organizer;
-    /// 비고
+    // 비고
     private String remark;
 
     public static VisitEntity fromModel(VisitModel model) {
