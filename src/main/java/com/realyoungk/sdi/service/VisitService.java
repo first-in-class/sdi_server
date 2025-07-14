@@ -16,7 +16,7 @@ public class VisitService {
         this.visitRepository = visitRepository;
     }
 
-    /// 다가오는 탐방 일정 조회
+    // 다가오는 탐방 일정 조회
     public List<VisitModel> getUpComingVisits(Date startedAt) {
         return visitRepository.findByStartedAtAfterOrderByStartedAtDesc(startedAt)
                 .stream()
@@ -24,7 +24,7 @@ public class VisitService {
                 .toList();
     }
 
-    /// 탐방 일정 저장
+    // 탐방 일정 저장
     public VisitModel saveVisit(VisitModel visitModel) {
         final VisitEntity savedVisitEntity = visitRepository.save(VisitEntity.fromModel(visitModel));
 
