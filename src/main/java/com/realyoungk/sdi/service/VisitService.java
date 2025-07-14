@@ -17,7 +17,7 @@ public class VisitService {
     }
 
     // 다가오는 탐방 일정 조회
-    public List<VisitModel> getUpComingVisits(Date startedAt) {
+    public List<VisitModel> getUpcoming(Date startedAt) {
         return visitRepository.findByStartedAtAfterOrderByStartedAtDesc(startedAt)
                 .stream()
                 .map(this::fromEntity)
@@ -25,7 +25,7 @@ public class VisitService {
     }
 
     // 탐방 일정 저장
-    public VisitModel saveVisit(VisitModel visitModel) {
+    public VisitModel save(VisitModel visitModel) {
         final VisitEntity savedVisitEntity = visitRepository.save(VisitEntity.fromModel(visitModel));
 
         return fromEntity(savedVisitEntity);

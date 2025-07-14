@@ -20,11 +20,11 @@ public class VisitController {
 
     @GetMapping
     public List<VisitModel> getVisits(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date startedAt) {
-        return visitService.getUpComingVisits(startedAt);
+        return visitService.getUpcoming(startedAt);
     }
 
     @PostMapping("/new")
     public VisitModel postVisitsNew(@RequestBody VisitModel visitModel) {
-        return visitService.saveVisit(visitModel);
+        return visitService.save(visitModel);
     }
 }
