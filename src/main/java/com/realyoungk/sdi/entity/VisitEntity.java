@@ -3,12 +3,20 @@ package com.realyoungk.sdi.entity;
 import com.realyoungk.sdi.model.VisitModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.AccessLevel;
+import lombok.Builder;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Data
+@Getter
+@ToString(of = {"id", "teamName", "organizer", "startedAt"})
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class VisitEntity {
     @Id
@@ -29,18 +37,30 @@ public class VisitEntity {
     // 비고
     private String remark;
 
-    public static VisitEntity fromModel(VisitModel model) {
-        VisitEntity entity = new VisitEntity();
-        entity.id = UUID.randomUUID().toString();
-        entity.createdAt = new Date();
-        entity.updatedAt = new Date();
-        entity.startedAt = model.getStartedAt();
-        entity.finishedAt = model.getFinishedAt();
-        entity.participantCount = model.getParticipantCount();
-        entity.teamName = model.getTeamName();
-        entity.organizer = model.getOrganizer();
-        entity.remark = model.getRemark();
+    @Builder
+    private VisitEntity(String id, Date createdAt, Date updatedAt, Date startedAt, Date finishedAt, String participantCount, String teamName, String organizer, String remark) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.startedAt = startedAt;
+        this.finishedAt = finishedAt;
+        this.participantCount = participantCount;
+        this.teamName = teamName;
+        this.organizer = organizer;
+        this.remark = remark;
+    }
 
-        return entity;
+    public static VisitEntity fromModel(VisitModel model) {
+        return VisitEntity.builder()
+                .id(UUID.randomUUID().toString())
+                .createdAt(new Date())
+                .updatedAt(new Date())
+                .startedAt(model.getStartedAt())
+                .finishedAt(model.getFinishedAt())
+                .participantCount(model.getParticipantCount())
+                .teamName(model.getTeamName())
+                .organizer(model.getOrganizer())
+                .remark(model.getRemark())
+                .build();
     }
 }

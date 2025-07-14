@@ -32,13 +32,14 @@ public class VisitService {
     }
 
     private VisitModel fromEntity(VisitEntity visitEntity) {
-        VisitModel visitModel = new VisitModel();
-        visitModel.setStartedAt(visitEntity.getStartedAt());
-        visitModel.setFinishedAt(visitEntity.getFinishedAt());
-        visitModel.setParticipantCount(visitEntity.getParticipantCount());
-        visitModel.setTeamName(visitEntity.getTeamName());
-        visitModel.setOrganizer(visitEntity.getOrganizer());
-        visitModel.setRemark(visitEntity.getRemark());
-        return visitModel;
+        return VisitModel.builder()
+                .id(visitEntity.getId())
+                .startedAt(visitEntity.getStartedAt())
+                .finishedAt(visitEntity.getFinishedAt())
+                .participantCount(visitEntity.getParticipantCount())
+                .teamName(visitEntity.getTeamName())
+                .organizer(visitEntity.getOrganizer())
+                .remark(visitEntity.getRemark())
+                .build();
     }
 }
