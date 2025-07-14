@@ -13,7 +13,6 @@
 *   Spring Boot
 *   Spring Data JPA
 *   PostgreSQL
-*   Lombok
 
 🚀 **실행 방법**
 
