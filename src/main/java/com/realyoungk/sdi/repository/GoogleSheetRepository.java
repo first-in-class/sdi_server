@@ -22,6 +22,13 @@ public class GoogleSheetRepository {
     static final String TITLE_RANGE = "Sheet1!C3:G3";
     public static final String DATA_RANGE = "Sheet1!C3:G";
 
+    public List<List<Object>> readSheet(String spreadsheetId, String range) throws IOException, GeneralSecurityException {
+        Sheets sheets = getSheets();
+        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, range).execute();
+
+        return response.getValues();
+    }
+
     private Sheets getSheets() throws IOException, GeneralSecurityException {
         GoogleCredentials credentials = GoogleCredentials
                 .fromStream(new ClassPathResource(CREDENTIALS_FILE_PATH).getInputStream())
@@ -31,12 +38,5 @@ public class GoogleSheetRepository {
                 .Builder(GoogleNetHttpTransport.newTrustedTransport(), GsonFactory.getDefaultInstance(), new HttpCredentialsAdapter(credentials))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-    }
-
-    public List<List<Object>> readSheet(String spreadsheetId, String range) throws IOException, GeneralSecurityException {
-        Sheets sheets = getSheets();
-        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, range).execute();
-
-        return response.getValues();
     }
 }
