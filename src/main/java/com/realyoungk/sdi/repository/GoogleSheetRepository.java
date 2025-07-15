@@ -19,7 +19,7 @@ public class GoogleSheetRepository {
     private static final String APPLICATION_NAME = "sdi-server";
     private static final String CREDENTIALS_FILE_PATH = "firstinvest-google-spread-sheet-key.json";
 
-    private Sheets getSheetsService() throws IOException, GeneralSecurityException {
+    private Sheets getSheets() throws IOException, GeneralSecurityException {
         GoogleCredentials credentials = GoogleCredentials
                 .fromStream(new ClassPathResource(CREDENTIALS_FILE_PATH).getInputStream())
                 .createScoped(Collections.singletonList("https://www.googleapis.com/auth/spreadsheets"));
@@ -31,8 +31,8 @@ public class GoogleSheetRepository {
     }
 
     public List<List<Object>> readSheet(String spreadsheetId, String range) throws IOException, GeneralSecurityException {
-        Sheets service = getSheetsService();
-        ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
+        Sheets sheets = getSheets();
+        ValueRange response = sheets.spreadsheets().values().get(spreadsheetId, range).execute();
 
         return response.getValues();
     }
