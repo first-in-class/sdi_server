@@ -2,18 +2,23 @@ package com.realyoungk.sdi.service;
 
 import com.realyoungk.sdi.entity.VisitEntity;
 import com.realyoungk.sdi.model.VisitModel;
+import com.realyoungk.sdi.repository.GoogleSheetRepository;
 import com.realyoungk.sdi.repository.VisitRepository;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class VisitService {
     private final VisitRepository visitRepository;
+    private final GoogleSheetRepository googleSheetRepository;
 
-    public VisitService(VisitRepository visitRepository) {
+    public VisitService(VisitRepository visitRepository, GoogleSheetRepository googleSheetRepository) {
         this.visitRepository = visitRepository;
+        this.googleSheetRepository = googleSheetRepository;
     }
 
     // 다가오는 탐방 일정 조회

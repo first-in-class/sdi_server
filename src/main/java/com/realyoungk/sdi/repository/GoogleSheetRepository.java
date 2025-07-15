@@ -18,6 +18,9 @@ import java.util.List;
 public class GoogleSheetRepository {
     private static final String APPLICATION_NAME = "sdi-server";
     private static final String CREDENTIALS_FILE_PATH = "firstinvest-google-spread-sheet-key.json";
+    public static final String SDI_VISIT_SPREADSHEET_ID = "1jXaJ7gsIMIJi1gfTx96iPi85O9WEJW-np4pE-ItL2l4";
+    static final String TITLE_RANGE = "Sheet1!C3:G3";
+    public static final String DATA_RANGE = "Sheet1!C3:G";
 
     private Sheets getSheets() throws IOException, GeneralSecurityException {
         GoogleCredentials credentials = GoogleCredentials

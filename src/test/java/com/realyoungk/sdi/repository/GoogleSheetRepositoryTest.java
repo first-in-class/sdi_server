@@ -17,10 +17,8 @@ class GoogleSheetRepositoryTest {
 
     @Test
     void readSheetTitle() throws Exception {
-        final String SPREADSHEET_ID = "1jXaJ7gsIMIJi1gfTx96iPi85O9WEJW-np4pE-ItL2l4";
-        final String RANGE = "Sheet1!C3:G3";
-
-        List<List<Object>> result = googleSheetRepository.readSheet(SPREADSHEET_ID, RANGE);
+        List<List<Object>> result = googleSheetRepository
+                .readSheet(GoogleSheetRepository.SDI_VISIT_SPREADSHEET_ID, GoogleSheetRepository.TITLE_RANGE);
 
         assertNotNull(result);
         assertEquals("기업명", result.getFirst().getFirst());
