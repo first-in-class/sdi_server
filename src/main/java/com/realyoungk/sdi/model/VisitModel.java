@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -33,5 +34,28 @@ public class VisitModel {
         this.teamName = teamName;
         this.organizer = organizer;
         this.remark = remark;
+    }
+
+    public String toDetailedString(long daysUntil) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M월 d일(E)");
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("‼️ *D-%d* ‼️\n", daysUntil));
+        sb.append(String.format("*일시*: %s\n", dateFormat.format(this.startedAt)));
+        sb.append(String.format("*기수*: %s\n", this.teamName));
+        sb.append(String.format("*주선자*: %s\n", this.organizer));
+        sb.append(String.format("*참여 인원*: %s\n", this.participantCount));
+        if (this.remark != null && !this.remark.isBlank()) {
+            sb.append(String.format("*비고*: %s\n", this.remark));
+        }
+        sb.append("--------------------");
+        return sb.toString();
+    }
+
+    public String toSimpleString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M월 d일(E)");
+        return String.format("🗓️ %s - %s (%s 주선)",
+                dateFormat.format(this.startedAt),
+                this.teamName,
+                this.organizer);
     }
 }
