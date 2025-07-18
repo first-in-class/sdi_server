@@ -12,3 +12,13 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/sdi}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+telegram:
+  bot:
+    username: "1기봇"
+    token: ${FIRST_BOT_TOKEN}
+
+google:
+  sheets:
+    spreadsheet-id: "1jXaJ7gsIMIJi1gfTx96iPi85O9WEJW-np4pE-ItL2l4"
+    data-range: "Sheet1!C3:G"
