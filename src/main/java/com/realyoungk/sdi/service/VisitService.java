@@ -71,21 +71,32 @@ public class VisitService {
     }
 
     private VisitModel fromSheetRow(List<Object> row) {
-        if (row == null || row.size() < 6 || row.get(0).toString().isBlank()) return null;
-
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-            return VisitModel.builder()
-                    .startedAt(dateFormat.parse(row.get(0).toString()))
-                    .teamName(row.get(2).toString())
-                    .organizer(row.get(3).toString())
-                    .participantCount(row.get(4).toString())
-                    .remark(row.get(5).toString())
-                    .build();
-        } catch (ParseException | IndexOutOfBoundsException e) {
-            log.warn("Google Sheet의 특정 행 파싱에 실패했습니다. Row: {}", row, e);
-
+        String startedAtStr = safeToString(row, 0); // B열
+        if (startedAtStr.isBlank()) {
             return null;
         }
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd");
+
+            return VisitModel.builder()
+                    .startedAt(dateFormat.parse(startedAtStr))
+                    .companyName(safeToString(row, 1))      // C열
+                    .teamName(safeToString(row, 2))         // D열
+                    .organizer(safeToString(row, 3))        // E열
+                    .participantCount(safeToString(row, 4)) // F열
+                    .remark(safeToString(row, 5))           // G열 (이제 안전합니다)
+                    .build();
+        } catch (ParseException e) {
+            log.warn("Google Sheet의 날짜 형식 파싱에 실패했습니다. Row: {}", row, e);
+            return null;
+        }
+    }
+
+    private String safeToString(List<Object> row, int index) {
+        if (row == null || index >= row.size() || row.get(index) == null) {
+            return "";
+        }
+        return row.get(index).toString().trim();
     }
 }

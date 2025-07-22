@@ -18,7 +18,17 @@ telegram:
     username: "1기봇"
     token: ${FIRST_BOT_TOKEN}
 
+telegrambots:
+  enabled: true
+  bots:
+    - username: <Bot Username> # BotFather에서 받은 봇 사용자명
+      token: <Bot Token>
+      path: /telegram # 봇에 접근할 엔드포인트(기본값 권장: `/telegram`)
+      webhook:
+        url: https://<도메인 또는 IP>/telegram
+
 google:
   sheets:
     spreadsheet-id: "1jXaJ7gsIMIJi1gfTx96iPi85O9WEJW-np4pE-ItL2l4"
-    data-range: "Sheet1!C3:G"
+    title-range: "Sheet1!B3:G3"
+    data-range: "Sheet1!B4:G"

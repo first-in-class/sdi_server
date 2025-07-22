@@ -2,6 +2,7 @@ package com.realyoungk.sdi.config;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -11,5 +12,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @param dataRange     조회할 데이터의 범위 (예: "Sheet1!C3:G")
  */
 @ConfigurationProperties(prefix = "google.sheets")
-public record GoogleSheetsProperties(String spreadsheetId, String dataRange) {
+public record GoogleSheetsProperties(String spreadsheetId, String titleRange, String dataRange) {
 }

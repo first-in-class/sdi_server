@@ -12,6 +12,8 @@ import java.util.Date;
 // 탐방
 public class VisitModel {
     private String id;
+    // 회사명
+    private String companyName;
     // 시작시각
     private Date startedAt;
     // 끝나는시각
@@ -26,8 +28,9 @@ public class VisitModel {
     private String remark;
 
     @Builder
-    public VisitModel(String id, Date startedAt, Date finishedAt, String participantCount, String teamName, String organizer, String remark) {
+    public VisitModel(String id, String companyName, Date startedAt, Date finishedAt, String participantCount, String teamName, String organizer, String remark) {
         this.id = id;
+        this.companyName = companyName;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
         this.participantCount = participantCount;
@@ -40,6 +43,7 @@ public class VisitModel {
         SimpleDateFormat dateFormat = new SimpleDateFormat("M월 d일(E)");
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("‼️ *D-%d* ‼️\n", daysUntil));
+        sb.append(String.format("*회사명*: %s\n", this.companyName));
         sb.append(String.format("*일시*: %s\n", dateFormat.format(this.startedAt)));
         sb.append(String.format("*기수*: %s\n", this.teamName));
         sb.append(String.format("*주선자*: %s\n", this.organizer));
@@ -53,8 +57,9 @@ public class VisitModel {
 
     public String toSimpleString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("M월 d일(E)");
-        return String.format("🗓️ %s - %s (%s 주선)",
+        return String.format("🗓️ %s - %s (%s %s 주선)",
                 dateFormat.format(this.startedAt),
+                this.participantCount,
                 this.teamName,
                 this.organizer);
     }
