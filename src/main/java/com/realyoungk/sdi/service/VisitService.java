@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.text.ParseException;
+import java.util.Comparator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,14 +43,15 @@ public class VisitService {
             return sheetData.stream()
                     .map(this::fromSheetRow)
                     .filter(Objects::nonNull)
-                    .filter(model -> model.getStartedAt().after(startedAt))
+                    .filter(model -> model.getStartedAt() != null && model.getStartedAt().after(startedAt))
+                    .sorted(Comparator.comparing(VisitModel::getStartedAt))
                     .collect(Collectors.toList());
 
         } catch (IOException | GeneralSecurityException e) {
             log.error("Google Sheet에서 데이터를 가져오는 중 오류가 발생했습니다.", e);
             throw new VisitFetchException("방문 일정을 가져올 수 없습니다. 잠시 후 다시 시도해주세요.", e);
         }
-    }
+    }    // 다가오는 탐방 일정 조회 (정렬 추가)
 
     // 탐방 일정 저장
     public VisitModel save(VisitModel visitModel) {
