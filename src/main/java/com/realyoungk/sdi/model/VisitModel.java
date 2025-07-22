@@ -51,15 +51,13 @@ public class VisitModel {
         if (this.remark != null && !this.remark.isBlank()) {
             sb.append(String.format("*비고*: %s\n", this.remark));
         }
-        sb.append("--------------------");
         return sb.toString();
     }
 
-    public String toSimpleString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("M월 d일(E)");
-        return String.format("🗓️ %s - %s (%s %s 주선)",
-                dateFormat.format(this.startedAt),
-                this.participantCount,
+    public String toSimpleString(long daysUtil) {
+        return String.format("🗓️ D-%s / %s / %s %s\n",
+                daysUtil,
+                this.companyName,
                 this.teamName,
                 this.organizer);
     }
