@@ -14,18 +14,10 @@ spring:
     password: ${DB_PASSWORD}
 
 telegram:
-  bot:
-    username: "1기봇"
-    token: ${FIRST_BOT_TOKEN}
-
-telegrambots:
-  enabled: true
-  bots:
-    - username: <Bot Username> # BotFather에서 받은 봇 사용자명
-      token: <Bot Token>
-      path: /telegram # 봇에 접근할 엔드포인트(기본값 권장: `/telegram`)
-      webhook:
-        url: https://<도메인 또는 IP>/telegram
+  bot-id: "1기봇"
+  bot-token: ${FIRST_BOT_TOKEN}
+  base-url: "https://api.telegram.org/bot"
+  test-chat-id: "1667145350" # 1기봇 채팅방
 
 google:
   sheets:
