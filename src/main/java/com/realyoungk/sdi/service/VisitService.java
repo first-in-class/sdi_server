@@ -8,8 +8,10 @@ import com.realyoungk.sdi.model.VisitModel;
 import com.realyoungk.sdi.repository.GoogleSheetRepository;
 import com.realyoungk.sdi.repository.TelegramRepository;
 import com.realyoungk.sdi.repository.VisitRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class VisitService {
     private final TelegramProperties telegramProperties;
     private final TelegramRepository telegramRepository;
 
-    public String getUpcomingMessage() {
+    public List<VisitModel> getUpcomingMessage() {
         final LocalDateTime localDateTime = LocalDateTime.now();
         final Date startedAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         final List<VisitModel> visitModels = fetchUpcoming(startedAt);
@@ -51,9 +53,9 @@ public class VisitService {
             }
         }
         final String message = sb.toString();
-
         telegramRepository.sendMessage(telegramProperties.testChatId(), message);
-        return message;
+
+        return visitModels;
     }
 
     // 탐방 일정 저장
