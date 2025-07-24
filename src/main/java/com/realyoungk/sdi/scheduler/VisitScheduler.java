@@ -17,7 +17,7 @@ public class VisitScheduler {
     private final NotificationService notificationService;
     private final TelegramProperties telegramProperties;
 
-    @Scheduled(cron = "0 0 8 * * *") // 매일 아침 8시 0분 0초에 실행
+    @Scheduled(cron = "0 0 8 * * *")
     public void sendDailyVisitNotification() {
         log.info("매일 아침 8시 탐방 일정 알림 배치를 시작합니다.");
         final String visitsMessage = visitService.createMessage();
