@@ -31,7 +31,7 @@ public class VisitService {
     private final GoogleSheetRepository googleSheetRepository;
     private final GoogleSheetsProperties googleSheetsProperties;
 
-    public String createUpcomingVisitsMessage() {
+    public String createMessage() {
         final LocalDateTime localDateTime = LocalDateTime.now();
         final Date startedAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         final List<VisitModel> visitModels = fetchUpcoming();
