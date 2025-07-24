@@ -23,25 +23,7 @@ public class VisitController {
 
     @GetMapping(value = "")
     public String getVisits() {
-        final LocalDateTime localDateTime = LocalDateTime.now();
-        final Date startedAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        final List<VisitModel> visitModels = visitService.fetchUpcoming(startedAt);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("[다가오는 탐방 일정]\n\n");
-
-        for (VisitModel visitModel : visitModels) {
-            long diff = (visitModel.getStartedAt().getTime() - startedAt.getTime()) / (1000 * 60 * 60 * 24);
-
-            if (diff >= 0 && diff <= 2) {
-                sb.append(visitModel.toDetailedString(diff));
-                sb.append("\n");
-            } else {
-                sb.append(visitModel.toSimpleString(diff));
-            }
-        }
-
-        return sb.toString();
+        return visitService.getUpcomingMessage();
     }
 
     @PostMapping("/new")
