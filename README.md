@@ -49,37 +49,18 @@
 1.  **다가오는 탐방 일정 조회**
     *   **Endpoint**: `GET /api/v1/visits`
     *   **Description**: 특정 시간 이후의 모든 탐방 일정을 시작 시간 순서대로 조회합니다.
+    *   **Example Request**:
+        ```shell
+        curl "http://localhost:8080/api/v1/visits"
+        ```
+        
+2   **텔레그램 봇 콜백 등록**
+    *   **Endpoint**: `GET /api/v1/callbacks/telegram`
+    *   **Description**: 텔레그램 1기봇이 메세지를 수신한경우 콜백을 통해 알려주도록 콜백을 등록합니다.
+    *   **Path Parameter**: `/bot<TOKEN>`
     *   **Query Parameter**:
-        *   `startedAt` (DateTime): 조회 기준 시각 (ISO 8601 형식, 예: `2023-10-27T10:00:00Z`)
+        *   `setWebhook` (String): 콜백을 받으려는 서버 엔드포인트
     *   **Example Request**:
         ```shell
-        curl "http://localhost:8080/api/v1/visits?startedAt=2023-01-01T00:00:00Z"
-        ```
-
-2.  **새로운 탐방 일정 등록**
-    *   **Endpoint**: `POST /api/v1/visits/new`
-    *   **Description**: 새로운 탐방 일정을 등록합니다.
-    *   **Request Body**:
-        ```json
-        {
-          "startedAt": "2024-09-01T14:00:00Z",
-          "finishedAt": "2024-09-01T16:00:00Z",
-          "participantCount": "15",
-          "teamName": "3기",
-          "organizer": "김영우",
-          "remark": "사전 질문 준비 필수"
-        }
-        ```
-    *   **Example Request**:
-        ```shell
-        curl -X POST http://localhost:8080/api/v1/visits/new \
-          -H "Content-Type: application/json" \
-          -d '{
-                "startedAt": "2024-09-01T14:00:00Z",
-                "finishedAt": "2024-09-01T16:00:00Z",
-                "participantCount": "15",
-                "teamName": "3기",
-                "organizer": "김영우",
-                "remark": "사전 질문 준비 필수"
-              }'
+        curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=<URL>"
         ```
