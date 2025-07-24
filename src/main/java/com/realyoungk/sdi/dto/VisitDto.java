@@ -1,4 +1,4 @@
-package com.realyoungk.sdi.entity;
+package com.realyoungk.sdi.dto;
 
 import com.realyoungk.sdi.model.VisitModel;
 import jakarta.persistence.Entity;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class VisitEntity {
+public class VisitDto {
     @Id
     private String id;
     private Date createdAt;
@@ -38,7 +38,7 @@ public class VisitEntity {
     private String remark;
 
     @Builder
-    private VisitEntity(String id, Date createdAt, Date updatedAt, Date startedAt, Date finishedAt, String participantCount, String teamName, String organizer, String remark) {
+    private VisitDto(String id, Date createdAt, Date updatedAt, Date startedAt, Date finishedAt, String participantCount, String teamName, String organizer, String remark) {
         this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -50,8 +50,8 @@ public class VisitEntity {
         this.remark = remark;
     }
 
-    public static VisitEntity fromModel(VisitModel model) {
-        return VisitEntity.builder()
+    public static VisitDto fromModel(VisitModel model) {
+        return VisitDto.builder()
                 .id(UUID.randomUUID().toString())
                 .createdAt(new Date())
                 .updatedAt(new Date())
