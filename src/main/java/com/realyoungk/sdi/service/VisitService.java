@@ -1,12 +1,10 @@
 package com.realyoungk.sdi.service;
 
 import com.realyoungk.sdi.config.GoogleSheetsProperties;
-import com.realyoungk.sdi.config.TelegramProperties;
 import com.realyoungk.sdi.entity.VisitEntity;
 import com.realyoungk.sdi.exception.VisitFetchException;
 import com.realyoungk.sdi.model.VisitModel;
 import com.realyoungk.sdi.repository.GoogleSheetRepository;
-import com.realyoungk.sdi.repository.TelegramRepository;
 import com.realyoungk.sdi.repository.VisitRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -32,16 +30,18 @@ public class VisitService {
     private final VisitRepository visitRepository;
     private final GoogleSheetRepository googleSheetRepository;
     private final GoogleSheetsProperties googleSheetsProperties;
-    private final TelegramProperties telegramProperties;
-    private final TelegramRepository telegramRepository;
 
-    public List<VisitModel> getUpcomingMessage() {
+    public String createUpcomingVisitsMessage() {
         final LocalDateTime localDateTime = LocalDateTime.now();
         final Date startedAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        final List<VisitModel> visitModels = fetchUpcoming(startedAt);
+        final List<VisitModel> visitModels = fetchUpcoming();
+
+        if (visitModels.isEmpty()) {
+            return "다가오는 탐방 일정이 없습니다. 😅";
+        }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("[다가오는 탐방 일정]\n\n");
+        sb.append("📢 [다가오는 탐방 일정]\n\n");
         for (VisitModel visitModel : visitModels) {
             long diff = (visitModel.getStartedAt().getTime() - startedAt.getTime()) / (1000 * 60 * 60 * 24);
             boolean isSoon = diff >= 0 && diff <= 2;
@@ -52,21 +52,22 @@ public class VisitService {
                 sb.append(visitModel.toSimpleString(diff));
             }
         }
-        final String message = sb.toString();
-        telegramRepository.sendMessage(telegramProperties.testChatId(), message);
 
-        return visitModels;
+        return sb.toString();
     }
 
-    // 탐방 일정 저장
     public VisitModel save(VisitModel visitModel) {
         final VisitEntity savedVisitEntity = visitRepository.save(VisitEntity.fromModel(visitModel));
 
         return fromEntity(savedVisitEntity);
     }
 
-    // 다가오는 탐방 일정 조회
-    private List<VisitModel> fetchUpcoming(Date startedAt) {
+    public List<VisitModel> fetchUpcoming() {
+        final Date startedAt = Date.from(LocalDateTime
+                .now()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+
         try {
             final List<List<Object>> sheetData = googleSheetRepository.readSheet(
                     googleSheetsProperties.spreadsheetId(),
