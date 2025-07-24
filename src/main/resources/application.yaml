@@ -12,3 +12,15 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/sdi}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+telegram:
+  bot-id: "1기봇"
+  bot-token: ${FIRST_BOT_TOKEN}
+  base-url: "https://api.telegram.org/bot"
+  test-chat-id: "1667145350" # 1기봇 채팅방
+
+google:
+  sheets:
+    spreadsheet-id: "1jXaJ7gsIMIJi1gfTx96iPi85O9WEJW-np4pE-ItL2l4"
+    title-range: "Sheet1!B3:G3"
+    data-range: "Sheet1!B4:G"
