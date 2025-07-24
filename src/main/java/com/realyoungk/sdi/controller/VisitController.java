@@ -22,7 +22,7 @@ public class VisitController {
     }
 
     @GetMapping(value = "")
-    public String getVisits() {
+    public List<VisitModel> getVisits() {
         return visitService.getUpcomingMessage();
     }
 
