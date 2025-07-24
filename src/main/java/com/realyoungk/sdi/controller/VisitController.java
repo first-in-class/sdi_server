@@ -23,7 +23,7 @@ public class VisitController {
 
     @GetMapping(value = "")
     public List<VisitModel> getVisits() {
-        return visitService.getUpcomingMessage();
+        return visitService.getUpcomingVisits();
     }
 
     @PostMapping("/new")
