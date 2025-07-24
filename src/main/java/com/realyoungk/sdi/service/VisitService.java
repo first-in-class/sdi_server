@@ -1,7 +1,7 @@
 package com.realyoungk.sdi.service;
 
 import com.realyoungk.sdi.config.GoogleSheetsProperties;
-import com.realyoungk.sdi.dto.VisitDto;
+import com.realyoungk.sdi.entity.VisitEntity;
 import com.realyoungk.sdi.exception.VisitFetchException;
 import com.realyoungk.sdi.model.VisitModel;
 import com.realyoungk.sdi.repository.GoogleSheetRepository;
@@ -57,9 +57,9 @@ public class VisitService {
     }
 
     public VisitModel save(VisitModel visitModel) {
-        final VisitDto savedVisitDto = visitRepository.save(VisitDto.fromModel(visitModel));
+        final VisitEntity savedVisitEntity = visitRepository.save(VisitEntity.fromModel(visitModel));
 
-        return fromEntity(savedVisitDto);
+        return fromEntity(savedVisitEntity);
     }
 
     public List<VisitModel> fetchUpcoming() {
@@ -88,15 +88,15 @@ public class VisitService {
         }
     }
 
-    private VisitModel fromEntity(VisitDto visitDto) {
+    private VisitModel fromEntity(VisitEntity visitEntity) {
         return VisitModel.builder()
-                .id(visitDto.getId())
-                .startedAt(visitDto.getStartedAt())
-                .finishedAt(visitDto.getFinishedAt())
-                .participantCount(visitDto.getParticipantCount())
-                .teamName(visitDto.getTeamName())
-                .organizer(visitDto.getOrganizer())
-                .remark(visitDto.getRemark())
+                .id(visitEntity.getId())
+                .startedAt(visitEntity.getStartedAt())
+                .finishedAt(visitEntity.getFinishedAt())
+                .participantCount(visitEntity.getParticipantCount())
+                .teamName(visitEntity.getTeamName())
+                .organizer(visitEntity.getOrganizer())
+                .remark(visitEntity.getRemark())
                 .build();
     }
 
