@@ -1,6 +1,7 @@
 package com.realyoungk.sdi.entity;
 
-import com.realyoungk.sdi.model.CalendarType;
+import com.realyoungk.sdi.model.CalendarType; // import 추가
+import com.realyoungk.sdi.model.LunarMonthType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,10 +19,10 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long internalId; // DB 내부에서만 사용할 숫자 ID (성능 최적화)
+    private Long id;
 
     @Column(nullable = false, unique = true, updatable = false)
-    private String id; // 외부에 노출될 고유 ID (UUID)
+    private String publicId;
 
     @Column(nullable = false, length = 50)
     private String name;
@@ -29,27 +30,33 @@ public class UserEntity {
     @Column(length = 20)
     private String phoneNumber;
 
-    private LocalDate birthday; // 생년월일 (YYYY-MM-DD)
+    private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
-    private CalendarType calendarType; // 양력/음력 구분
+    private CalendarType calendarType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private LunarMonthType lunarMonthType = LunarMonthType.NORMAL;
+
 
     @Column(length = 100)
-    private String teamName; // 소속 스터디명
+    private String teamName;
 
     @PrePersist
     protected void onCreate() {
-        if (this.id == null) {
-            this.id = UUID.randomUUID().toString();
+        if (this.publicId == null) {
+            this.publicId = UUID.randomUUID().toString();
         }
     }
 
     @Builder
-    public UserEntity(String name, String phoneNumber, LocalDate birthday, CalendarType calendarType, String teamName) {
+    public UserEntity(String name, String phoneNumber, LocalDate birthday, CalendarType calendarType, LunarMonthType lunarMonthType, String teamName) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.calendarType = calendarType;
+        this.lunarMonthType = (calendarType == CalendarType.SOLAR) ? LunarMonthType.NORMAL : lunarMonthType;
         this.teamName = teamName;
     }
 }
