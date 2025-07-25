@@ -13,10 +13,6 @@ java {
 	}
 }
 
-repositories {
-	mavenCentral()
-}
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
@@ -43,6 +39,8 @@ dependencies {
     // Telegram Bots Spring Boot Starter
     implementation 'org.telegram:telegrambots-springboot-webhook-starter:7.4.0'
 
+    // 한국 음력 변환 라이브러리
+    implementation "com.github.FrancescoJo:korean-lunar-calendar:1.0.2"
 }
 
 tasks.named('test') {
