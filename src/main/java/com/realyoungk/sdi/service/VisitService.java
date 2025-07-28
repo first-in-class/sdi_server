@@ -45,11 +45,12 @@ public class VisitService {
         for (VisitModel visitModel : visitModels) {
             long diff = (visitModel.getStartedAt().getTime() - startedAt.getTime()) / (1000 * 60 * 60 * 24);
             boolean isSoon = diff >= 0 && diff <= 2;
+            long dDay = diff + 1;
             if (isSoon) {
-                sb.append(visitModel.toDetailedString(diff));
+                sb.append(visitModel.toDetailedString(dDay));
                 sb.append("\n");
             } else {
-                sb.append(visitModel.toSimpleString(diff));
+                sb.append(visitModel.toSimpleString(dDay));
             }
         }
 
