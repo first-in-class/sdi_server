@@ -21,7 +21,7 @@ public class VisitScheduler {
     public void sendDailyVisitNotification() {
         log.info("매일 아침 8시 탐방 일정 알림 배치를 시작합니다.");
         final String visitsMessage = visitService.createMessage();
-        final String chatId = telegramProperties.testChatId();
+        final String chatId = telegramProperties.firstStudyChatId();
         notificationService.send(chatId, visitsMessage);
         log.info("Chat ID '{}'로 탐방 일정 알림을 성공적으로 전송했습니다.", chatId);
     }
