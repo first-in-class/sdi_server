@@ -31,32 +31,6 @@ public class VisitService {
     private final GoogleSheetRepository googleSheetRepository;
     private final GoogleSheetsProperties googleSheetsProperties;
 
-    public String createMessage() {
-        final LocalDateTime localDateTime = LocalDateTime.now();
-        final Date startedAt = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        final List<VisitModel> visitModels = fetchUpcoming();
-
-        if (visitModels.isEmpty()) {
-            return "다가오는 탐방 일정이 없습니다. 😅";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("📢 [다가오는 탐방 일정]\n\n");
-        for (VisitModel visitModel : visitModels) {
-            long diff = (visitModel.getStartedAt().getTime() - startedAt.getTime()) / (1000 * 60 * 60 * 24);
-            boolean isSoon = diff >= 0 && diff <= 2;
-            long dDay = diff + 1;
-            if (isSoon) {
-                sb.append(visitModel.toDetailedString(dDay));
-                sb.append("\n");
-            } else {
-                sb.append(visitModel.toSimpleString(dDay));
-            }
-        }
-
-        return sb.toString();
-    }
-
     public VisitModel save(VisitModel visitModel) {
         final VisitEntity savedVisitEntity = visitRepository.save(VisitEntity.fromModel(visitModel));
 
