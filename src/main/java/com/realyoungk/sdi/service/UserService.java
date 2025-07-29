@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -21,6 +22,40 @@ import java.util.stream.Stream;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    /**
+     * 모든 유저를 조회합니다.
+     */
+    public List<UserModel> findAllUsers() {
+        return userRepository.findAll().stream()
+                .map(UserModel::from)
+                .toList();
+    }
+
+    /**
+     * 사용자를 생성합니다.
+     */
+    public UserModel createUser(UserModel body) {
+        UserEntity entity = UserEntity.builder()
+                .name(body.name())
+                .phoneNumber(body.phoneNumber())
+                .birthday(body.birthday())
+                .calendarType(body.calendarType())
+                .lunarMonthType(body.lunarMonthType())
+                .teamName(body.teamName())
+                .build();
+
+        UserEntity savedEntity = userRepository.save(entity);
+        return UserModel.from(savedEntity);
+    }
+
+    /**
+     * 특정 publicId를 가진 사용자를 조회합니다.
+     */
+    public Optional<UserModel> findUserByPublicId(String publicId) {
+        return userRepository.findByPublicId(publicId)
+                .map(UserModel::from);
+    }
 
     /**
      * 특정 날짜가 생일인 모든 사용자(양력/음력 포함)를 조회합니다.
@@ -51,6 +86,28 @@ public class UserService {
 
         return Stream.concat(solarBirthdayUsers.stream(), lunarBirthdayUsers.stream())
                 .distinct()
+                .map(UserModel::from)
+                .toList();
+    }
+
+    /**
+     * ✅ [추가] 여러 사용자를 한번에 생성합니다.
+     */
+    public List<UserModel> createUsers(List<UserModel> users) {
+        List<UserEntity> entitiesToSave = users.stream()
+                .map(body -> UserEntity.builder()
+                        .name(body.name())
+                        .phoneNumber(body.phoneNumber())
+                        .birthday(body.birthday())
+                        .calendarType(body.calendarType())
+                        .lunarMonthType(body.lunarMonthType())
+                        .teamName(body.teamName())
+                        .build())
+                .toList();
+
+        List<UserEntity> savedEntities = userRepository.saveAll(entitiesToSave);
+
+        return savedEntities.stream()
                 .map(UserModel::from)
                 .toList();
     }
