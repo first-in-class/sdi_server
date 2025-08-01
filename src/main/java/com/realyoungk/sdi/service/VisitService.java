@@ -2,7 +2,7 @@ package com.realyoungk.sdi.service;
 
 import com.realyoungk.sdi.config.GoogleSheetsProperties;
 import com.realyoungk.sdi.entity.VisitEntity;
-import com.realyoungk.sdi.exception.VisitFetchException;
+import com.realyoungk.sdi.exception.InfrastructureException;
 import com.realyoungk.sdi.model.VisitModel;
 import com.realyoungk.sdi.repository.GoogleSheetRepository;
 import com.realyoungk.sdi.repository.VisitRepository;
@@ -59,7 +59,7 @@ public class VisitService {
                     .toList();
         } catch (IOException | GeneralSecurityException e) {
             log.error("Google Sheet에서 데이터를 가져오는 중 오류가 발생했습니다.", e);
-            throw new VisitFetchException("방문 일정을 가져올 수 없습니다. 잠시 후 다시 시도해주세요.", e);
+            throw new InfrastructureException.GoogleSheetsUnavailable(e);
         }
     }
 
