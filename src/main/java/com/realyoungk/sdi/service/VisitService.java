@@ -45,8 +45,8 @@ public class VisitService {
 
         try {
             final List<List<Object>> sheetData = googleSheetRepository.readSheet(
-                    googleSheetsProperties.spreadsheetId(),
-                    googleSheetsProperties.dataRange()
+                    googleSheetsProperties.getSpreadsheetId(),
+                    googleSheetsProperties.getDataRange()
             );
 
             if (sheetData == null) return List.of();

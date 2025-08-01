@@ -36,7 +36,7 @@ public class BirthdayScheduler {
         // ✅ 오늘 생일인 사람이 있을 경우에만 메시지를 보냅니다.
         if (usersWithBirthdayToday != null && !usersWithBirthdayToday.isEmpty()) {
             String birthdayMessage = messageFormatter.formatBirthdayMessage(usersWithBirthdayToday, "오늘");
-            String chatId = telegramProperties.firstStudyChatId(); // 알림을 보낼 채팅방 ID
+            String chatId = telegramProperties.getFirstStudyChatId(); // 알림을 보낼 채팅방 ID
 
             notificationService.send(chatId, birthdayMessage);
             log.info("오늘의 생일자 알림을 성공적으로 전송했습니다. 대상: {} 명", usersWithBirthdayToday.size());
@@ -53,7 +53,7 @@ public class BirthdayScheduler {
         log.info("매월 생일자 목록 확인 배치를 시작합니다.");
         List<UserModel> usersWithBirthdayThisMonth = userService.findUsersWithBirthdayIn(LocalDate.now());
         String birthdayMessage = messageFormatter.formatBirthdayMessage(usersWithBirthdayThisMonth, "이번 달");
-        String chatId = telegramProperties.firstStudyChatId(); // 알림을 보낼 채팅방 ID
+        String chatId = telegramProperties.getFirstStudyChatId(); // 알림을 보낼 채팅방 ID
 
         notificationService.send(chatId, birthdayMessage);
         log.info("이번 달의 생일자 목록 알림을 성공적으로 전송했습니다.");
