@@ -22,7 +22,7 @@ public class TelegramRepository {
     final private RestTemplate restTemplate;
 
     public void sendMessage(String chatId, String message) {
-        String url = telegramProperties.baseUrl() + telegramProperties.botToken() + "/sendMessage";
+        String url = telegramProperties.getBaseUrl() + telegramProperties.getBotToken() + "/sendMessage";
 
         Map<String, String> body = new HashMap<>();
         body.put("chat_id", chatId);
