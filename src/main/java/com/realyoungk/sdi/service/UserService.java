@@ -37,12 +37,12 @@ public class UserService {
      */
     public UserModel createUser(UserModel body) {
         UserEntity entity = UserEntity.builder()
-                .name(body.name())
-                .phoneNumber(body.phoneNumber())
-                .birthday(body.birthday())
-                .calendarType(body.calendarType())
-                .lunarMonthType(body.lunarMonthType())
-                .teamName(body.teamName())
+                .name(body.getName())
+                .phoneNumber(body.getPhoneNumber())
+                .birthday(body.getBirthday())
+                .calendarType(body.getCalendarType())
+                .lunarMonthType(body.getLunarMonthType())
+                .teamName(body.getTeamName())
                 .build();
 
         UserEntity savedEntity = userRepository.save(entity);
@@ -96,12 +96,12 @@ public class UserService {
     public List<UserModel> createUsers(List<UserModel> users) {
         List<UserEntity> entitiesToSave = users.stream()
                 .map(body -> UserEntity.builder()
-                        .name(body.name())
-                        .phoneNumber(body.phoneNumber())
-                        .birthday(body.birthday())
-                        .calendarType(body.calendarType())
-                        .lunarMonthType(body.lunarMonthType())
-                        .teamName(body.teamName())
+                        .name(body.getName())
+                        .phoneNumber(body.getPhoneNumber())
+                        .birthday(body.getBirthday())
+                        .calendarType(body.getCalendarType())
+                        .lunarMonthType(body.getLunarMonthType())
+                        .teamName(body.getTeamName())
                         .build())
                 .toList();
 

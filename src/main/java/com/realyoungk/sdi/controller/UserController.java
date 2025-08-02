@@ -35,7 +35,7 @@ public class UserController {
         UserModel createdUser = userService.createUser(body);
         // 생성된 리소스의 위치를 Location 헤더에 담아 201 Created 응답 반환
         return ResponseEntity
-                .created(URI.create("/api/v1/users/" + createdUser.id()))
+                .created(URI.create("/api/v1/users/" + createdUser.getId()))
                 .body(createdUser);
     }
 
