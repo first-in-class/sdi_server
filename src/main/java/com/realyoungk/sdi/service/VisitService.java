@@ -66,7 +66,7 @@ public class VisitService {
     private VisitModel fromEntity(VisitEntity visitEntity) {
         return new VisitModel(
                 visitEntity.getId(),
-                null, // companyName
+                visitEntity.getCompanyName(), // companyName
                 visitEntity.getStartedAt(),
                 visitEntity.getFinishedAt(),
                 visitEntity.getParticipantCount(),
