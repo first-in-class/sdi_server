@@ -28,6 +28,7 @@ public class VisitEntity {
     private Date startedAt;
     // 끝나는시각
     private Date finishedAt;
+    private String companyName;
     // 참여자 수: ex. 10, 13, 무제한, null
     private String participantCount;
     // 기수: ex. 1기, 2기, 3기, 강남지스
