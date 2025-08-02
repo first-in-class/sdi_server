@@ -1,7 +1,7 @@
 package com.realyoungk.sdi.repository;
 
 import com.realyoungk.sdi.entity.UserEntity;
-import com.realyoungk.sdi.model.CalendarType;
+import com.realyoungk.sdi.enums.CalendarType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,10 +19,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findByName(String name);
 
-    @Query("SELECT u FROM UserEntity u WHERE u.calendarType = com.realyoungk.sdi.model.CalendarType.SOLAR AND EXTRACT(MONTH FROM u.birthday) = :month AND EXTRACT(DAY FROM u.birthday) = :day")
+    @Query("SELECT u FROM UserEntity u WHERE u.calendarType = com.realyoungk.sdi.enums.CalendarType.SOLAR AND EXTRACT(MONTH FROM u.birthday) = :month AND EXTRACT(DAY FROM u.birthday) = :day")
     List<UserEntity> findUsersWithSolarBirthday(@Param("month") int month, @Param("day") int day);
 
-    @Query("SELECT u FROM UserEntity u WHERE u.calendarType = com.realyoungk.sdi.model.CalendarType.SOLAR AND EXTRACT(MONTH FROM u.birthday) = :month")
+    @Query("SELECT u FROM UserEntity u WHERE u.calendarType = com.realyoungk.sdi.enums.CalendarType.SOLAR AND EXTRACT(MONTH FROM u.birthday) = :month")
     List<UserEntity> findUsersWithSolarBirthdayInMonth(@Param("month") int month);
 
     List<UserEntity> findByCalendarType(CalendarType calendarType);

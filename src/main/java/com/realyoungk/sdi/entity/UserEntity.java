@@ -1,7 +1,7 @@
 package com.realyoungk.sdi.entity;
 
-import com.realyoungk.sdi.model.CalendarType; // import 추가
-import com.realyoungk.sdi.model.LunarMonthType;
+import com.realyoungk.sdi.enums.CalendarType;
+import com.realyoungk.sdi.enums.LunarMonthType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

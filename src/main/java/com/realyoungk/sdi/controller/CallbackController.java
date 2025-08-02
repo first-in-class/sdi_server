@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -32,7 +29,7 @@ public class CallbackController {
 
     @PostMapping("/telegram")
     public void postTelegram(@RequestBody TelegramUpdateDto update) {
-        if (update == null || update.getMessage() == null || update.getMessage().getText() == null) {
+        if (update == null) {
             log.warn("Received an empty or invalid update from Telegram.");
             return;
         }
