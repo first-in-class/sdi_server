@@ -3,6 +3,8 @@ package com.realyoungk.sdi.model;
 import com.github.fj.koreanlunarcalendar.KoreanLunarCalendarUtils;
 import com.github.fj.koreanlunarcalendar.KoreanLunarDate;
 import com.realyoungk.sdi.entity.UserEntity;
+import com.realyoungk.sdi.enums.CalendarType;
+import com.realyoungk.sdi.enums.LunarMonthType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
