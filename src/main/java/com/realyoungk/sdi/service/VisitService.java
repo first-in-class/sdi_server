@@ -64,15 +64,16 @@ public class VisitService {
     }
 
     private VisitModel fromEntity(VisitEntity visitEntity) {
-        return VisitModel.builder()
-                .id(visitEntity.getId())
-                .startedAt(visitEntity.getStartedAt())
-                .finishedAt(visitEntity.getFinishedAt())
-                .participantCount(visitEntity.getParticipantCount())
-                .teamName(visitEntity.getTeamName())
-                .organizer(visitEntity.getOrganizer())
-                .remark(visitEntity.getRemark())
-                .build();
+        return new VisitModel(
+                visitEntity.getId(),
+                null, // companyName
+                visitEntity.getStartedAt(),
+                visitEntity.getFinishedAt(),
+                visitEntity.getParticipantCount(),
+                visitEntity.getTeamName(),
+                visitEntity.getOrganizer(),
+                visitEntity.getRemark()
+        );
     }
 
     private VisitModel fromSheetRow(List<Object> row) {
@@ -84,14 +85,16 @@ public class VisitService {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd");
 
-            return VisitModel.builder()
-                    .startedAt(dateFormat.parse(startedAtStr))
-                    .companyName(safeToString(row, 1))      // C열
-                    .teamName(safeToString(row, 2))         // D열
-                    .organizer(safeToString(row, 3))        // E열
-                    .participantCount(safeToString(row, 4)) // F열
-                    .remark(safeToString(row, 5))           // G열 (이제 안전합니다)
-                    .build();
+            return new VisitModel(
+                    null, // id
+                    safeToString(row, 1),      // companyName (C열)
+                    dateFormat.parse(startedAtStr), // startedAt
+                    null, // finishedAt
+                    safeToString(row, 4),      // participantCount (F열)
+                    safeToString(row, 2),      // teamName (D열)
+                    safeToString(row, 3),      // organizer (E열)
+                    safeToString(row, 5)       // remark (G열)
+            );
         } catch (ParseException e) {
             log.warn("Google Sheet의 날짜 형식 파싱에 실패했습니다. Row: {}", row, e);
             return null;

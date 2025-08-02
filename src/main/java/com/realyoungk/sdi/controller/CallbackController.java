@@ -32,13 +32,13 @@ public class CallbackController {
 
     @PostMapping("/telegram")
     public void postTelegram(@RequestBody TelegramUpdateDto update) {
-        if (update == null || update.message() == null || update.message().text() == null) {
+        if (update == null || update.getMessage() == null || update.getMessage().getText() == null) {
             log.warn("Received an empty or invalid update from Telegram.");
             return;
         }
 
-        String text = update.message().text().trim();
-        String chatId = String.valueOf(update.message().chat().id());
+        String text = update.getMessage().getText().trim();
+        String chatId = String.valueOf(update.getMessage().getChat().getId());
         log.info("Received message '{}' from chat_id '{}'", text, chatId);
 
 
