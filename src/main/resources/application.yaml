@@ -18,7 +18,9 @@ telegram:
   bot-token: ${FIRST_BOT_TOKEN}
   base-url: "https://api.telegram.org/bot"
   test-chat-id: "1667145350" # 1기봇 채팅방
-  first-study-chat-id: "-4911675977" # 1기 스터디방
+  first-study-old-chat-id: "-4911675977" # 1기 스터디방
+  first-study-chat-id: "-4989944168" # 1기 스터디방
+
 
 google:
   sheets:
